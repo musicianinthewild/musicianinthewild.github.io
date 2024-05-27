@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catarina Retouching</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            padding-right: 100px;
+            font-family: "Montserrat", sans-serif;
+            transition: background-color 0.3s; /* Add transition for background-color */
+        }
+
+        .text-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+}
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background-color: #fcfcfc;
+            padding: px;
+            display: flex;
+            outline: 1px solid black;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; /* Changed from row to column */
+            justify-content: space-between;
+        }
+
+        .navbar li {
+            margin-top:45px;
+            margin-bottom: 60px;
+        }
+
+        .navbar li a{
+            display: block;
+            color: #000000;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+            transform: rotate(-90deg);
+            z-index: 9999;
+        }
+
+        .navbar li a i{
+            display: block;
+            color: #000000;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            transform: rotate(-270deg);
+            text-align: center;
+            z-index: 0;
+        }
+
+        .navbar li a:hover {
+            background-color: #555;
+        }
+
+        .column {
+            padding: 0; /* Remove default padding */
+            width: 25%;
+            position: relative; /* Position for the overlay */
+        }
+
+        .column img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            max-width: 100%; /* Ensure images don't exceed container width */
+            cursor: pointer; /* Add cursor pointer */
+            transition: outline 0.3s ease; /* Add smooth transition to the outline */
+        }
+
+        .column img.dark-overlay {
+            filter: brightness(0.3); /* Add dark overlay to all images */
+        }
+
+        .column img.selected {
+            filter: none; /* Remove dark overlay for selected image */
+        }
+        .column img:hover {
+    filter: opacity(0.7); /* Adjust opacity to make the image less opaque */
+}
+
+.column img:hover {
+    outline-color: rgba(0, 0, 0, 1); /* Set the color of the outline with full opacity */
+    outline-width: 3px; /* Set the width of the outline */
+    outline-style: solid; /* Set the style of the outline */
+    outline-offset: -11px; /* Remove any gap between the outline and the image */
+    z-index: 9999;
+}
+
+        .image-overlay {
+            position: relative;
+        }
+
+        .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(255, 0, 0);
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0; /* Initially hide the title */
+    transition: opacity 0.3s; /* Add transition for smooth fade-in effect */
+}
+
+.title:hover {
+    opacity: 1; /* Adjust opacity to make the title visible on hover */
+}
+        .image-overlay:hover .title {
+            opacity: 1; /* Show the title on hover */
+        }
+
+        /* Unaltered image */
+        .unaltered-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close-button {
+            display: none; /* Hide close button by default */
+            position: fixed;
+            top: 40px;
+            right: 200px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        /* Dark background class */
+        .dark-background {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        }
+
+        .description-box {
+            position: fixed;
+            left: 25%; /* Position to the right of the clicked image */
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: auto; /* Adjust width as needed */
+            max-width: 15%;
+            padding: 10px; /* Add padding */
+            background-color: white; /* White background */
+            border: 2px solid black; /* Black border */
+            border-radius: 5px; /* Rounded corners */
+            z-index: 10000;
+            display: none; /* Hide initially */
+            text-align: right;
+        }
+
+        .description {
+            margin: 0; /* Remove default margin */
+        }
+
+        @media (max-width: 1200px) {
+            .column {
+                width: 33.33%; /* 3 columns on smaller screens */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .column {
+                width: 50%; /* 2 columns on even smaller screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .column {
+                width: 100%; /* 1 column on the smallest screens */
+            }
+        }
+        
+</style>
+</head>
+<body>
+    <h1 style="padding: 10px; font-size: 5rem; font-weight: 200;">CATARINA VERDELHO</h1>
+    
+    <div class="navbar">
+        <ul>
+            <li><a href="/home.html"><i class="fas fa-home"></i></a></li>
+            <li><a href="/gallery.html">Gallery</a></li>
+            <li><a href="mailto:catarinamverdelho@gmail.com">Contact</a></li>
+        </ul>
+    </div>
+    <div class="description-box" id="description-box">
+        <!-- Paragraphs will be populated dynamically with JavaScript -->
+    </div>
+    <div class="row"> <!-- Removed .container class -->
+        <div class="col-md-3 column" id="column1">
+            <!-- Column 1 images will be populated dynamically with JavaScript -->
+        </div>
+        <div class="col-md-3 column" id="column2">
+            <!-- Column 2 images will be populated dynamically with JavaScript -->
+        </div>
+        <div class="col-md-3 column" id="column3">
+            <!-- Column 3 images will be populated dynamically with JavaScript -->
+        </div>
+        <div class="col-md-3 column" id="column4">
+            <!-- Column 4 images will be populated dynamically with JavaScript -->
+        </div>
+        <p style="padding-left: 30px;"> All photography by Frederico Martins, Lalaland Studios </p>
+    </div>
+
+    <button class="close-button">X</button>
+
+    <script>
+        // Array of image paths
+        var imagePaths = [
+                "images/25yearsfolder/25years1.jpg",
+                "images/25yearsfolder/25years2.jpg",
+                "images/25yearsfolder/25years3.jpg",
+                "images/albanofolder/albano1.jpg",
+                "images/albanofolder/albano2.jpg",
+                "images/albanofolder/albano3.jpg",
+                "images/alinesummer21folder/alinesummer211fnl.jpg",
+                "images/alinesummer21folder/alinesummer212fnl.jpg",
+                "images/alinesummer21folder/alinesummer213fnl.jpg",
+                "images/alinewinter20folder/alinewinter201.jpg",
+                "images/alinewinter20folder/alinewinter202.jpg",
+                "images/alinewinter20folder/alinewinter203.jpg",
+                "images/apiccaps21folder/apiccaps211.jpg",
+                "images/apiccaps21folder/apiccaps212.jpg",
+                "images/apiccaps21folder/apiccaps213.jpg",
+                "images/checkfolder/check1.jpg",
+                "images/checkfolder/check2.jpg",
+                "images/checkfolder/check3.jpg",
+                "images/colonialfolder/colonial1.jpg",
+                "images/colonialfolder/colonial2.jpg",
+                "images/colonialfolder/colonial3.jpg",
+                "images/cr7clothesfolder/cr7clothes1.jpg",
+                "images/cr7clothesfolder/cr7clothes2.jpg",
+                "images/cr7clothesfolder/cr7clothes3.jpg",
+                "images/cr7perfumefolder/cr7perfume1.jpg",
+                "images/cr7perfumefolder/cr7perfume2.jpg",
+                "images/cr7perfumefolder/cr7perfume3.jpg",
+                "images/cromanticafolder/cromantica1.jpg",
+                "images/cromanticafolder/cromantica2.jpg",
+                "images/cromanticafolder/cromantica3.jpg",
+                "images/dreamingfolder/dreaming1.jpg",
+                "images/dreamingfolder/dreaming2.jpg",
+                "images/dreamingfolder/dreaming3.jpg",
+                "images/filigreefolder/filigree1.jpg",
+                "images/filigreefolder/filigree2.jpg",
+                "images/filigreefolder/filigree3.jpg",
+                "images/flamefolder/flame1.jpg",
+                "images/flamefolder/flame2.jpg",
+                "images/flamefolder/flame3.Jpg",
+                "images/fuoriscalafolder/fuoriscala1.jpg",
+                "images/fuoriscalafolder/fuoriscala2.jpg",
+                "images/fuoriscalafolder/fuoriscala3.jpg",
+                "images/giornofolder/giorno1.jpg",
+                "images/giornofolder/giorno2.jpg",
+                "images/giornofolder/giorno3.jpg",
+                "images/giselajoaofolder/giselajoao1.jpg",
+                "images/giselajoaofolder/giselajoao2.jpg",
+                "images/giselajoaofolder/giselajoao3.jpg",
+                "images/gqapiccapsfolder/gqapiccaps1.jpg",
+                "images/gqapiccapsfolder/gqapiccaps2.jpg",
+                "images/gqapiccapsfolder/gqapiccaps3.jpg",
+                "images/gqstyleukfolder/gqstyleuk1.jpg",
+                "images/gqstyleukfolder/gqstyleuk2.jpg",
+                "images/gqstyleukfolder/gqstyleuk3.jpg",
+                "images/inadaptadosfolder/inadaptados1.jpg",
+                "images/inadaptadosfolder/inadaptados2.Jpg",
+                "images/inadaptadosfolder/inadaptados3.Jpg",
+                "images/kellyfolder/kelly1.jpg",
+                "images/kellyfolder/kelly2.jpg",
+                "images/kellyfolder/kelly3.jpg",
+                "images/leatherfolder/leather1.jpeg",
+                "images/leatherfolder/leather2.jpg",
+                "images/leatherfolder/leather3.jpg",
+                "images/lemonjellyfolder/lemonjelly1.jpg",
+                "images/lemonjellyfolder/lemonjelly2.jpg",
+                "images/lemonjellyfolder/lemonjelly3.jpg",
+                "images/lj20folder/lj201.jpg",
+                "images/lj20folder/lj202.jpg",
+                "images/lj20folder/lj203.jpg",
+                "images/luciafolder/lucia1.jpg",
+                "images/luciafolder/lucia2.jpg",
+                "images/luciafolder/lucia3.jpg",
+                "images/maryling20folder/maryling201.jpg",
+                "images/maryling20folder/maryling202.jpg",
+                "images/maryling20folder/maryling203.jpg",
+                "images/maryling21folder/maryling211.jpg",
+                "images/maryling21folder/maryling212.jpg",
+                "images/maryling21folder/maryling213.jpg",
+                "images/marylise21folder/marylise211.jpg",
+                "images/marylise21folder/marylise212.jpg",
+                "images/marylise21folder/marylise213.jpg",
+                "images/marylisecampaignfolder/marylisecampaign1.jpg",
+                "images/marylisecampaignfolder/marylisecampaign2.jpg",
+                "images/marylisecampaignfolder/marylisecampaign3.jpg",
+                "images/melchiorfolder/melchior1.jpg",
+                "images/melchiorfolder/melchior2.jpg",
+                "images/melchiorfolder/melchior3.jpg",
+                "images/nunolopesfolder/nunolopes1.jpg",
+                "images/nunolopesfolder/nunolopes2.jpg",
+                "images/nunolopesfolder/nunolopes3.jpg",
+                "images/onewatchfolder/onewatch1.jpg",
+                "images/onewatchfolder/onewatch2.jpg",
+                "images/onewatchfolder/onewatch3.jpg",
+                "images/onofrefolder/onofre1.jpg",
+                "images/onofrefolder/onofre2.jpg",
+                "images/onofrefolder/onofre3.jpg",
+                "images/pointbreakfolder/pointbreak1.jpg",
+                "images/pointbreakfolder/pointbreak2.jpg",
+                "images/pointbreakfolder/pointbreak3.jpg",
+                "images/portraitladyfolder/portraitlady1.Jpg",
+                "images/portraitladyfolder/portraitlady2.Jpg",
+                "images/portraitladyfolder/portraitlady3.Jpg",
+                "images/rachidefolder/rachide1.jpg",
+                "images/rachidefolder/rachide2.jpg",
+                "images/rachidefolder/rachide3.jpg",
+                "images/rembo21folder/rembo211.jpg",
+                "images/rembo21folder/rembo212.jpg",
+                "images/rembo21folder/rembo213.jpg",
+                "images/rembofolder/rembo1.jpg",
+                "images/rembofolder/rembo2.jpg",
+                "images/rembofolder/rembo3.jpg",
+                "images/sartanejofolder/sartanejo1.Jpg",
+                "images/sartanejofolder/sartanejo2.Jpg",
+                "images/sartanejofolder/sartanejo3.Jpg",
+                "images/simplicityfolder/simplicity1.jpg",
+                "images/simplicityfolder/simplicity2.jpg",
+                "images/simplicityfolder/simplicity3.jpg",
+                "images/sisterlylovefolder/sisterlylove1.Jpg",
+                "images/sisterlylovefolder/sisterlylove2.Jpg",
+                "images/sisterlylovefolder/sisterlylove3.Jpg",
+                "images/themisfitsfolder/themisfits1.jpg",
+                "images/themisfitsfolder/themisfits2.jpg",
+                "images/themisfitsfolder/themisfits3.jpg",
+                "images/turning18folder/turning181.jpg",
+                "images/turning18folder/turning182.jpg",
+                "images/turning18folder/turning183.jpg",
+                "images/ukrainefolder/ukraine1.jpg",
+                "images/ukrainefolder/ukraine2.jpg",
+                "images/ukrainefolder/ukraine3.jpg",
+                "images/vanderloofolder/vanderloo1.jpg",
+                "images/vanderloofolder/vanderloo2.jpg",
+                "images/vanderloofolder/vanderloo3.jpg",
+                "images/viaggiofolder/viaggio1.jpg",
+                "images/viaggiofolder/viaggio2.jpg",
+                "images/viaggiofolder/viaggio3.jpg",
+                "images/wearemodelsfolder/wearemodels1.jpg",
+                "images/wearemodelsfolder/wearemodels2.jpg",
+                "images/wearemodelsfolder/wearemodels3.jpg",
+ ];
+
+ var imageTitle = [
+                "1",
+                "2",
+                "1",
+                "2","1",
+                "2","1",
+                "2","1",
+                "2","1",
+                "2","1",
+                "2","1",
+                "2",
+            ];
+
+ var imageDescriptions = [
+ "<strong>PORTUGAL FASHION - 25 YEARS</strong> <br><em> Campaign . ‘Protecting Talent’</em> <br><br> Images: Frederico Martins<br> Art Direction: Ana Magalhães <br>Styling: Sérgio 11<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Vasco Freitas<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler, David Valente,<br> Ramiro Marques, Jorge Correira<br>Production Assistant: Catarina Verdelho<br>Talent: Maria Rosas, Samuel Barradas ‘We are Models’<br>Retouching: Lalaland Studios<br>",
+ "<strong>PORTUGAL FASHION - 25 YEARS</strong> <br><em> Campaign . ‘Protecting Talent’</em> <br><br> Images: Frederico Martins<br> Art Direction: Ana Magalhães <br>Styling: Sérgio 11<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Vasco Freitas<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler, David Valente,<br> Ramiro Marques, Jorge Correira<br>Production Assistant: Catarina Verdelho<br>Talent: Maria Rosas, Samuel Barradas ‘We are Models’<br>Retouching: Lalaland Studios<br>",
+ "<strong>PORTUGAL FASHION - 25 YEARS</strong> <br><em> Campaign . ‘Protecting Talent’</em> <br><br> Images: Frederico Martins<br> Art Direction: Ana Magalhães <br>Styling: Sérgio 11<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Vasco Freitas<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler, David Valente,<br> Ramiro Marques, Jorge Correira<br>Production Assistant: Catarina Verdelho<br>Talent: Maria Rosas, Samuel Barradas ‘We are Models’<br>Retouching: Lalaland Studios<br>",
+     "<strong>JERÓNIMO</strong> <br><em> Portuguese Soul . Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Nelly Gonçalves<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá<br>Styling Assistant: Larissa Marinho<br>Talent: Albano Jerónimo<br>Retouching: Lalaland Studios<br>",
+     "<strong>JERÓNIMO</strong> <br><em> Portuguese Soul . Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Nelly Gonçalves<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá<br>Styling Assistant: Larissa Marinho<br>Talent: Albano Jerónimo<br>Retouching: Lalaland Studios<br>",
+     "<strong>JERÓNIMO</strong> <br><em> Portuguese Soul . Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Nelly Gonçalves<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá<br>Styling Assistant: Larissa Marinho<br>Talent: Albano Jerónimo<br>Retouching: Lalaland Studios<br>",
+    "This is image 1",
+    "This is image 2",
+    "This is image 3",
+    "This is image 1",
+    "This is image 1",
+    "This is image 1",
+    "<strong>APICCAPS - 2021 CAMPAIGN</strong> <br><em> Apiccaps . Campaign . 2021</em> <br><br>Images: Frederico Martins<br>Art Direction: Frederico Martins, Ana Magalhães, Helena Silva<br>Coregraphy: Marco da Silva<br>Styling: Fernando Bastos Pereira<br>Production & Set Design: Snowberry<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Styling Assistant: Nelson Ribeiro<br>Coordination: Paulo Gonçalves, Cláudia Pinto<br>Photographer Assistant: Pedro Sá, João Ferreira<br>Models: Anilton Cabral, Catarina Casqueiro, Ivan Romão, Daniela Haganu, Isilda Moreira<br>Retouching: Lalaland Studios<br>",
+    "<strong>APICCAPS - 2021 CAMPAIGN</strong> <br><em> Apiccaps . Campaign . 2021</em> <br><br>Images: Frederico Martins<br>Art Direction: Frederico Martins, Ana Magalhães, Helena Silva<br>Coregraphy: Marco da Silva<br>Styling: Fernando Bastos Pereira<br>Production & Set Design: Snowberry<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Styling Assistant: Nelson Ribeiro<br>Coordination: Paulo Gonçalves, Cláudia Pinto<br>Photographer Assistant: Pedro Sá, João Ferreira<br>Models: Anilton Cabral, Catarina Casqueiro, Ivan Romão, Daniela Haganu, Isilda Moreira<br>Retouching: Lalaland Studios<br>",
+    "<strong>APICCAPS - 2021 CAMPAIGN</strong> <br><em> Apiccaps . Campaign . 2021</em> <br><br>Images: Frederico Martins<br>Art Direction: Frederico Martins, Ana Magalhães, Helena Silva<br>Coregraphy: Marco da Silva<br>Styling: Fernando Bastos Pereira<br>Production & Set Design: Snowberry<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Styling Assistant: Nelson Ribeiro<br>Coordination: Paulo Gonçalves, Cláudia Pinto<br>Photographer Assistant: Pedro Sá, João Ferreira<br>Models: Anilton Cabral, Catarina Casqueiro, Ivan Romão, Daniela Haganu, Isilda Moreira<br>Retouching: Lalaland Studios<br>",
+    "<strong>AMICA - CHECK</strong> <br><em> Amica. Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Bess Van Noord ‘Monster’<br>Retouching: Lalaland Studios<br>",
+    "<strong>AMICA - CHECK</strong> <br><em> Amica. Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Bess Van Noord ‘Monster’<br>Retouching: Lalaland Studios<br>",
+    "<strong>AMICA - CHECK</strong> <br><em> Amica. Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Bess Van Noord ‘Monster’<br>Retouching: Lalaland Studios<br>",
+    "<strong>AMICA - COLONIAL SOCIETY</strong> <br><em>Amica. Editorial . Março 2020 </em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Michael Matsoukas<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Loane Normand ‘Elite’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>AMICA - COLONIAL SOCIETY</strong> <br><em>Amica. Editorial . Março 2020 </em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Michael Matsoukas<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Loane Normand ‘Elite’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>AMICA - COLONIAL SOCIETY</strong> <br><em>Amica. Editorial . Março 2020 </em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Michael Matsoukas<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Loane Normand ‘Elite’<br>Retouching: Lalaland Studios<br>" ,
+    "Ronaldo",
+    "Ronaldo",
+    "Ronaldo",
+    "Ronaldo",
+    "Ronaldo",
+    "Ronaldo",
+    "<strong>AMICA - CROMANTICA</strong> <br><em>Amica. Editorial . Março 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Michael Matsoukas<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Ondria ‘Management’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>AMICA - CROMANTICA</strong> <br><em>Amica. Editorial . Março 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Michael Matsoukas<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Ondria ‘Management’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>AMICA - CROMANTICA</strong> <br><em>Amica. Editorial . Março 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Michael Matsoukas<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Ondria ‘Management’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>CAROLINA CURADO - JEWELRY 'DREAMING' CAMPAIGN - 2020</strong> <br><em>Carolina Curado. Campaign . 2020</em> <br><br>Images: Frederico Martins<br>Styling: Sérgio 11<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Ana Raquel Ribeiro<br>Photographer Assistant: Pedro Sá, Michael Matsou<br>kasModel: Maria Rosa ‘We are Models’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>CAROLINA CURADO - JEWELRY 'DREAMING' CAMPAIGN - 2020</strong> <br><em>Carolina Curado. Campaign . 2020</em> <br><br>Images: Frederico Martins<br>Styling: Sérgio 11<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Ana Raquel Ribeiro<br>Photographer Assistant: Pedro Sá, Michael Matsou<br>kasModel: Maria Rosa ‘We are Models’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>CAROLINA CURADO - JEWELRY 'DREAMING' CAMPAIGN - 2020</strong> <br><em>Carolina Curado. Campaign . 2020</em> <br><br>Images: Frederico Martins<br>Styling: Sérgio 11<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Ana Raquel Ribeiro<br>Photographer Assistant: Pedro Sá, Michael Matsou<br>kasModel: Maria Rosa ‘We are Models’<br>Retouching: Lalaland Studios<br>" ,
+    "Filigree",
+    "Filigree",
+    "Filigree",
+    "<strong>ALBA BAPTISTA</strong> <br><em>Flame Magazine. Editorial . 2020</em> <br><br>Images: Frederico Martins<br>Styling: Joyce Doret<br>Production: Flame Magazine<br>Hair: Tom Perdigão<br>Make up: Inês Aguiar<br>Photographer Assistant: Pedro Sá, João Ferreira<br>Talent: Alba Baptista<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>ALBA BAPTISTA</strong> <br><em>Flame Magazine. Editorial . 2020</em> <br><br>Images: Frederico Martins<br>Styling: Joyce Doret<br>Production: Flame Magazine<br>Hair: Tom Perdigão<br>Make up: Inês Aguiar<br>Photographer Assistant: Pedro Sá, João Ferreira<br>Talent: Alba Baptista<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>ALBA BAPTISTA</strong> <br><em>Flame Magazine. Editorial . 2020</em> <br><br>Images: Frederico Martins<br>Styling: Joyce Doret<br>Production: Flame Magazine<br>Hair: Tom Perdigão<br>Make up: Inês Aguiar<br>Photographer Assistant: Pedro Sá, João Ferreira<br>Talent: Alba Baptista<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>AMICA - FUORI SCALA</strong> <br><em>Amica. Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Sara Soric ‘Select’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>AMICA - FUORI SCALA</strong> <br><em>Amica. Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Sara Soric ‘Select’<br>Retouching: Lalaland Studios<br>" ,
+    "<strong>AMICA - FUORI SCALA</strong> <br><em>Amica. Editorial . Setembro 2020</em> <br><br>Images: Frederico Martins<br>Styling: Paolo Turina<br>Production: Diogo Oliveira, Lalaland Studios<br>Hair: Rui Rocha<br>Make up: Patrícia Lima<br>Photographer Assistant: Pedro Sá, Ricardo Röseler<br>Stylist Assistant: Maria Sampaio, Francesca Bona<br>Model: Sara Soric ‘Select’<br>Retouching: Lalaland Studios<br>" ,
+
+    // Add descriptions for other images here...
+];
+
+ // Function to shuffle arrays
+ function shuffleArrays(arrays) {
+    for (var i = arrays[0].length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        for (var k = 0; k < arrays.length; k++) {
+            var temp = arrays[k][i];
+            arrays[k][i] = arrays[k][j];
+            arrays[k][j] = temp;
+        }
+    }
+}
+
+// Call shuffleArrays function to randomize imagePaths and imageDescriptions arrays
+shuffleArrays([imagePaths, imageDescriptions, imageTitle]);
+
+function populateColumns() {
+    var columns = document.querySelectorAll('.column');
+    var columnCount = columns.length;
+    var imagesPerColumn = Math.ceil(imagePaths.length / columnCount);
+
+    for (var i = 0; i < columnCount; i++) {
+        var column = columns[i];
+        for (var j = i * imagesPerColumn; j < Math.min((i + 1) * imagesPerColumn, imagePaths.length); j++) {
+            var imgContainer = document.createElement('div'); // Create a container for the image and overlay
+            imgContainer.classList.add('image-container');
+
+            var img = document.createElement('img');
+            img.src = imagePaths[j];
+            img.alt = "Image";
+            img.classList.add('clickable-image'); // Add class for click event
+
+            // Attach corresponding title to each image
+            var titleIndex = i * imagesPerColumn + (j % imagesPerColumn);
+            img.dataset.title = imageTitle[titleIndex] || 'No title available';
+
+            var overlay = document.createElement('div');
+            overlay.classList.add('image-overlay');
+
+            var title = document.createElement('p');
+            title.innerHTML = imageTitle[titleIndex] || 'No title available';
+            title.classList.add('title');
+            overlay.appendChild(title);
+
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(overlay);
+
+            column.appendChild(imgContainer);
+        }
+    }
+
+    var titles = document.querySelectorAll('.title');
+
+// Add event listeners to show/hide titles on hover
+titles.forEach(function(title) {
+    title.addEventListener('mouseenter', function() {
+        title.style.opacity = 1;
+    });
+
+    title.addEventListener('mouseleave', function() {
+        title.style.opacity = 0;
+    });
+});
+
+ 
+}
+
+// Call populateColumns function on page load
+window.onload = populateColumns();
+
+
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('clickable-image')) {
+        // Add dark background to the body
+        document.body.classList.add('dark-background');
+
+        // Remove the dark overlay from all images
+        var allImages = document.querySelectorAll('.column img');
+        allImages.forEach(function(image) {
+            image.classList.remove('selected');
+            image.classList.add('dark-overlay');
+        });
+
+        // Remove dark overlay from the clicked image
+        event.target.classList.remove('dark-overlay');
+        event.target.classList.add('selected');
+
+        // Clone the clicked image and append it to the body
+        var clonedImage = event.target.cloneNode(true);
+        clonedImage.classList.add('unaltered-image'); // Add class to position it
+        document.body.appendChild(clonedImage);
+
+        // Create close button if not already present
+        var closeButton = document.querySelector('.close-button');
+        if (!closeButton) {
+            closeButton = document.createElement('button');
+            closeButton.innerHTML = 'X';
+            closeButton.classList.add('close-button');
+            document.body.appendChild(closeButton);
+        }
+
+        // Show the close button
+        closeButton.style.display = 'block';
+
+        // Create and append paragraph element for description
+        var descriptionBox = document.getElementById('description-box');
+descriptionBox.innerHTML = ""; // Clear previous description
+var descriptionIndex = Array.from(document.querySelectorAll('.column img')).indexOf(event.target);
+var paragraph = document.createElement('p');
+paragraph.innerHTML = imageDescriptions[descriptionIndex] || 'No description available'; // Use innerHTML instead of textContent
+paragraph.classList.add('description');
+descriptionBox.appendChild(paragraph);
+
+        // Show the description box
+        descriptionBox.style.display = 'block';
+        
+        // Add event listener to close button
+        closeButton.addEventListener('click', function() {
+            document.body.classList.remove('dark-background');
+            clonedImage.remove();
+            closeButton.remove();
+            descriptionBox.style.display = 'none'; // Hide the description box
+            // Remove dark overlay from all images
+            allImages.forEach(function(image) {
+                image.classList.remove('dark-overlay');
+            });
+        });
+
+        // Remove the darkened background, cloned image, and paragraph when clicking anywhere else on the page
+        document.body.addEventListener('click', function() {
+            document.body.classList.remove('dark-background');
+            clonedImage.remove();
+            closeButton.remove();
+            descriptionBox.style.display = 'none'; // Hide the description box
+            // Remove dark overlay from all images
+            allImages.forEach(function(image) {
+                image.classList.remove('dark-overlay');
+            });
+
+            
+        }, { once: true }); // Remove the event listener after it's executed once
+    }
+});
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
