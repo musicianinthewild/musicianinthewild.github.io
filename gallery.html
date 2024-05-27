@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"> <!-- Your image file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catarina Retouching</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0 20px;
+            padding-right: 100px;
+            font-family: "Montserrat", sans-serif;
+            transition: background-color 0.3s; /* Add transition for background-color */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background-color: #fcfcfc;
+            padding: 5px;
+            display: flex;
+            outline: 1px solid black;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; /* Changed from row to column */
+            justify-content: space-between;
+        }
+
+        .navbar li {
+            margin-top:45px;
+            margin-bottom: 60px;
+        }
+
+        .navbar li a{
+            display: block;
+            color: #000000;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+            transform: rotate(-90deg);
+            z-index: 9999;
+        }
+
+        .navbar li a i{
+            display: block;
+            color: #000000;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            transform: rotate(-270deg);
+            text-align: center;
+            z-index: 0;
+        }
+
+        .navbar li a:hover {
+            background-color: #555;
+        }
+
+        .col img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            max-width: 100%; /* Ensure images don't exceed container width */
+            cursor: pointer; /* Add cursor pointer */
+            transition: outline 0.3s ease; /* Add smooth transition to the outline */
+        }
+
+        .col img:hover {
+            filter: brightness(80%);
+            outline-color: rgba(0, 0, 0, 1); /* Set the color of the outline with full opacity */
+            outline-width: 3px; /* Set the width of the outline */
+            outline-style: solid; /* Set the style of the outline */
+            outline-offset: -11px; /* Remove any gap between the outline and the image */
+            z-index: 9999;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block; /* Ensures container size fits the image */
+        }
+
+        .image-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+}
+
+        .image-container:hover img {
+            filter: brightness(80%); /* Apply brightness filter to the image on hover */
+            outline-color: rgba(0, 0, 0, 1); /* Set the color of the outline with full opacity */
+            outline-width: 4px; /* Set the width of the outline */
+            outline-style: solid; /* Set the style of the outline */
+            outline-offset: -11px; /* Remove any gap between the outline and the image */
+            z-index: 9999;
+        }
+
+        .image-container:hover .image-title {
+            opacity: 1;
+        }
+
+        /* Add spacing between columns */
+        .col {
+            padding: 0 10px;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20px; /* Add a fixed height to the footer */
+            border-top: 10px solid #ffffff; /* Add a 1px solid border on top */
+        }
+        h1, span{
+          
+        font-size: 3rem;
+    }
+
+  
+
+@media (max-width: 1340px) {
+    .image-title {
+        font-size: 0.49rem;
+    }
+}
+        @media (max-width: 1024px) {
+   h1, span{
+        font-size: 1.5rem;
+    }
+   
+}
+@media (min-width: 750px) and (max-width: 1024px) {
+    .image-title {
+        font-size: 0.7rem; /* Adjust the font size as needed */
+    }
+}
+
+@media (min-width: 575px) and (max-width: 750px) {
+    .image-title {
+        font-size: 0.5rem; /* Adjust the font size as needed */
+    }
+}
+
+
+@media (max-width: 575px) {
+   h1, span{
+        font-size: 1rem;
+    }
+  
+}
+
+@media (max-width: 575px) {
+    .image-title {
+        font-size: 0.7rem; /* Adjust the font size as needed */
+    }
+}
+
+@media (max-width: 440px) {
+   h1, span{
+        font-size: 0.8rem;
+    }
+   
+}
+
+@media (max-width: 420px) {
+    .image-title {
+        font-size: 0.4rem; /* Adjust the font size as needed */
+    }
+}
+
+@media (max-width: 300px) {
+    .image-title {
+        font-size: 0.3rem; /* Adjust the font size as needed */
+    }
+}
+@media (max-width: 260px) {
+    .image-title {
+        font-size: 0.15rem; /* Adjust the font size as needed */
+    }
+}
+
+  .unaltered-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close-button {
+            display: none; /* Hide close button by default */
+            position: fixed;
+            top: 40px;
+            right: 200px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        /* Dark background class */
+        .dark-background {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        }
+
+    </style>
+</head>
+<body>
+    <h1 style="padding: 10px;padding-top: 25px; font-weight: 200;">CATARINA VERDELHO <span style="float: right;">RETOUCHER</span></h1>
+   
+    
+    <div class="navbar">
+        <ul>
+            <li><a href="/home.html"><i class="fas fa-home"></i></a></li>
+            <li><a href="/gallery.html">Gallery</a></li>
+            <li><a href="mailto:catarinamverdelho@gmail.com">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4" id="imageGallery">
+        <div class="col" id="column1">
+            <!-- Column 1 images will be populated dynamically with JavaScript -->
+        </div>
+        <div class="col" id="column2">
+            <!-- Column 2 images will be populated dynamically with JavaScript -->
+        </div>
+        <div class="col" id="column3">
+            <!-- Column 3 images will be populated dynamically with JavaScript -->
+        </div>
+        <div class="col" id="column4">
+            <!-- Column 4 images will be populated dynamically with JavaScript -->
+        </div>
+
+        
+    </div>
+
+    <div class="footer">
+        <h2 style="font-size: 0.8rem;font-weight: 100;"><em>Please note: All images displayed on this site are the property of the respective photographers & clients. They must not be copied or used without permission.</em></h2>
+    </div>
+
+    <script>
+        // Array of image URLs and their corresponding links
+        const images = [
+        { url: 'images/25yearsfolder/25years1.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+{ url: 'images/25yearsfolder/25years2.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+{ url: 'images/25yearsfolder/25years3.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+{ url: 'images/25yearsfolder/25years5.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+{ url: 'images/25yearsfolder/25years10.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+{ url: 'images/25yearsfolder/25years13.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+{ url: 'images/25yearsfolder/25years18.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+{ url: 'images/25yearsfolder/25years20.jpg', link: '/projectpage/portugalfashion.html', title: 'PORTUGAL FASHION 25 YEARS' },
+
+{ url: 'images/albanofolder/albano1.jpg', link: '/projectpage/albanojeronimo.html', title: 'ALBANO JERÓNIMO X PORTUGUESE SOUL' },
+{ url: 'images/albanofolder/albano2.jpg', link: '/projectpage/albanojeronimo.html', title: 'ALBANO JERÓNIMO X PORTUGUESE SOUL' },
+{ url: 'images/albanofolder/albano3.jpg', link: '/projectpage/albanojeronimo.html', title: 'ALBANO JERÓNIMO X PORTUGUESE SOUL' },
+{ url: 'images/albanofolder/albano4.jpg', link: '/projectpage/albanojeronimo.html', title: 'ALBANO JERÓNIMO X PORTUGUESE SOUL' },
+{ url: 'images/albanofolder/albano12.jpg', link: '/projectpage/albanojeronimo.html', title: 'ALBANO JERÓNIMO X PORTUGUESE SOUL' },
+{ url: 'images/albanofolder/albano17.jpg', link: '/projectpage/albanojeronimo.html', title: 'ALBANO JERÓNIMO X PORTUGUESE SOUL' },
+
+{ url: 'images/alinesummer21folder/alinesummer211.jpg', link: '/projectpage/aline21.html', title: 'A LINE SS21 X LOOKBOOK' },
+{ url: 'images/alinesummer21folder/alinesummer214.jpg', link: '/projectpage/aline21.html', title: 'A LINE SS21 X LOOKBOOK' },
+{ url: 'images/alinesummer21folder/alinesummer216.jpg', link: '/projectpage/aline21.html', title: 'A LINE SS21 X LOOKBOOK' },
+
+{ url: 'images/alinewinter20folder/alinewinter201.jpg', link: '/projectpage/aline20.html', title: 'A LINE AW20 COLLECTION' },
+{ url: 'images/alinewinter20folder/alinewinter202.jpg', link: '/projectpage/aline20.html', title: 'A LINE AW20 COLLECTION' },
+{ url: 'images/alinewinter20folder/alinewinter203.jpg', link: '/projectpage/aline20.html', title: 'A LINE AW20 COLLECTION' },
+{ url: 'images/alinewinter20folder/alinewinter204.jpg', link: '/projectpage/aline20.html', title: 'A LINE AW20 COLLECTION' },
+{ url: 'images/alinewinter20folder/alinewinter205.jpg', link: '/projectpage/aline20.html', title: 'A LINE AW20 COLLECTION' },
+{ url: 'images/alinewinter20folder/alinewinter208.jpg', link: '/projectpage/aline20.html', title: 'A LINE AW20 COLLECTION' },
+{ url: 'images/alinewinter20folder/alinewinter2010.jpg', link: '/projectpage/aline20.html', title: 'A LINE AW20 COLLECTION' },
+
+{ url: 'images/apiccaps21folder/apiccaps211.jpg', link: '/projectpage/apicappsportugueseshoes.html', title: 'APICCAPS X PORTUGUESE SHOES' },
+{ url: 'images/apiccaps21folder/apiccaps213.jpg', link: '/projectpage/apicappsportugueseshoes.html', title: 'APICCAPS X PORTUGUESE SHOES' },
+{ url: 'images/apiccaps21folder/apiccaps218.jpg', link: '/projectpage/apicappsportugueseshoes.html', title: 'APICCAPS X PORTUGUESE SHOES' },
+
+{ url: 'images/checkfolder/check1.jpg', link: '/projectpage/amicacheck.html', title: 'AMICA MAGAZINE X ‘CHECK’' },
+{ url: 'images/checkfolder/check2.jpg', link: '/projectpage/amicacheck.html', title: 'AMICA MAGAZINE X ‘CHECK’' },
+{ url: 'images/checkfolder/check3.jpg', link: '/projectpage/amicacheck.html', title: 'AMICA MAGAZINE X ‘CHECK’' },
+{ url: 'images/checkfolder/check4.jpg', link: '/projectpage/amicacheck.html', title: 'AMICA MAGAZINE X ‘CHECK’' },
+{ url: 'images/checkfolder/check6.jpg', link: '/projectpage/amicacheck.html', title: 'AMICA MAGAZINE X ‘CHECK’' },
+{ url: 'images/checkfolder/check8.jpg', link: '/projectpage/amicacheck.html', title: 'AMICA MAGAZINE X ‘CHECK’' },
+
+{ url: 'images/colonialfolder/colonial1.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+{ url: 'images/colonialfolder/colonial2.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+{ url: 'images/colonialfolder/colonial3.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+{ url: 'images/colonialfolder/colonial5.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+{ url: 'images/colonialfolder/colonial7.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+{ url: 'images/colonialfolder/colonial8.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+{ url: 'images/colonialfolder/colonial10.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+{ url: 'images/colonialfolder/colonial12.jpg', link: '/projectpage/amicacolonialsociety.html', title: 'AMICA MAGAZINE X ‘COLONIAL SOCIETY’' },
+
+{ url: 'images/cr7clothesfolder/cr7clothes1.jpg', link: '/projectpage/cr7brands.html', title: 'CR7 BRANDS' },
+{ url: 'images/cr7clothesfolder/cr7clothes2.jpg', link: '/projectpage/cr7brands.html', title: 'CR7 BRANDS' },
+{ url: 'images/cr7clothesfolder/cr7clothes3.jpg', link: '/projectpage/cr7brands.html', title: 'CR7 BRANDS' },
+{ url: 'images/cr7clothesfolder/cr7clothes5.jpg', link: '/projectpage/cr7brands.html', title: 'CR7 BRANDS' },
+{ url: 'images/cr7clothesfolder/cr7clothes6.jpg', link: '/projectpage/cr7brands.html', title: 'CR7 BRANDS' },
+{ url: 'images/cr7clothesfolder/cr7clothes9.jpg', link: '/projectpage/cr7brands.html', title: 'CR7 BRANDS' },
+
+{ url: 'images/cr7perfumefolder/cr7perfume1.jpg', link: '/projectpage/cr7fragrance.html', title: 'CR7 FRAGRANCE' },
+{ url: 'images/cr7perfumefolder/cr7perfume2.jpg', link: '/projectpage/cr7fragrance.html', title: 'CR7 FRAGRANCE' },
+{ url: 'images/cr7perfumefolder/cr7perfume3.jpg', link: '/projectpage/cr7fragrance.html', title: 'CR7 FRAGRANCE' },
+{ url: 'images/cr7perfumefolder/cr7perfume4.jpg', link: '/projectpage/cr7fragrance.html', title: 'CR7 FRAGRANCE' },
+{ url: 'images/cr7perfumefolder/cr7perfume5.jpg', link: '/projectpage/cr7fragrance.html', title: 'CR7 FRAGRANCE' },
+
+{ url: 'images/cromanticafolder/cromantica1.jpg', link: '/projectpage/amicacromantica.html', title: 'AMICA MAGAZINE X ‘CROMANTICA’' },
+{ url: 'images/cromanticafolder/cromantica2.jpg', link: '/projectpage/amicacromantica.html', title: 'AMICA MAGAZINE X ‘CROMANTICA’' },
+{ url: 'images/cromanticafolder/cromantica3.jpg', link: '/projectpage/amicacromantica.html', title: 'AMICA MAGAZINE X ‘CROMANTICA’' },
+{ url: 'images/cromanticafolder/cromantica4.jpg', link: '/projectpage/amicacromantica.html', title: 'AMICA MAGAZINE X ‘CROMANTICA’' },
+{ url: 'images/cromanticafolder/cromantica6.jpg', link: '/projectpage/amicacromantica.html', title: 'AMICA MAGAZINE X ‘CROMANTICA’' },
+{ url: 'images/cromanticafolder/cromantica7.jpg', link: '/projectpage/amicacromantica.html', title: 'AMICA MAGAZINE X ‘CROMANTICA’' },
+
+{ url: 'images/dreamingfolder/dreaming2.jpg', link: '/projectpage/carolinacurado.html', title: 'CAROLINA CURADO JEWELRY’20' },
+{ url: 'images/dreamingfolder/dreaming3.jpg', link: '/projectpage/carolinacurado.html', title: 'CAROLINA CURADO JEWELRY’20' },
+{ url: 'images/dreamingfolder/dreaming4.jpg', link: '/projectpage/carolinacurado.html', title: 'CAROLINA CURADO JEWELRY’20' },
+{ url: 'images/dreamingfolder/dreaming5.jpg', link: '/projectpage/carolinacurado.html', title: 'CAROLINA CURADO JEWELRY’20' },
+{ url: 'images/dreamingfolder/dreaming7.jpg', link: '/projectpage/carolinacurado.html', title: 'CAROLINA CURADO JEWELRY’20' },
+
+{ url: 'images/filigreefolder/filigree1.jpg', link: '/projectpage/houseoffiligree.html', title: 'HOUSE OF FILIGREE' },
+{ url: 'images/filigreefolder/filigree2.jpg', link: '/projectpage/houseoffiligree.html', title: 'HOUSE OF FILIGREE' },
+{ url: 'images/filigreefolder/filigree3.jpg', link: '/projectpage/houseoffiligree.html', title: 'HOUSE OF FILIGREE' },
+{ url: 'images/filigreefolder/filigree4.jpg', link: '/projectpage/houseoffiligree.html', title: 'HOUSE OF FILIGREE' },
+{ url: 'images/filigreefolder/filigree5.jpg', link: '/projectpage/houseoffiligree.html', title: 'HOUSE OF FILIGREE' },
+
+{ url: 'images/flamefolder/flame1.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+{ url: 'images/flamefolder/flame2.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+{ url: 'images/flamefolder/flame3.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+{ url: 'images/flamefolder/flame4.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+{ url: 'images/flamefolder/flame5.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+{ url: 'images/flamefolder/flame8.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+{ url: 'images/flamefolder/flame14.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+{ url: 'images/flamefolder/flame18.jpg', link: '/projectpage/albabaptista.html', title: 'ALBA BAPTISTA X FLAME MAGAZINE' },
+
+{ url: 'images/fuoriscalafolder/fuoriscala1.jpg', link: '/projectpage/amicafuoriscala.html', title: 'AMICA MAGAZINE X ‘FUORI SCALA’' },
+{ url: 'images/fuoriscalafolder/fuoriscala2.jpg', link: '/projectpage/amicafuoriscala.html', title: 'AMICA MAGAZINE X ‘FUORI SCALA’' },
+{ url: 'images/fuoriscalafolder/fuoriscala3.jpg', link: '/projectpage/amicafuoriscala.html', title: 'AMICA MAGAZINE X ‘FUORI SCALA’' },
+{ url: 'images/fuoriscalafolder/fuoriscala5.jpg', link: '/projectpage/amicafuoriscala.html', title: 'AMICA MAGAZINE X ‘FUORI SCALA’' },
+{ url: 'images/fuoriscalafolder/fuoriscala6.jpg', link: '/projectpage/amicafuoriscala.html', title: 'AMICA MAGAZINE X ‘FUORI SCALA’' },
+{ url: 'images/fuoriscalafolder/fuoriscala9.jpg', link: '/projectpage/amicafuoriscala.html', title: 'AMICA MAGAZINE X ‘FUORI SCALA’' },
+
+{ url: 'images/giornofolder/giorno1.jpg', link: '/projectpage/amicaesternogiorno.html', title: 'AMICA X ‘ESTERNO GIORNO’' },
+{ url: 'images/giornofolder/giorno2.jpg', link: '/projectpage/amicaesternogiorno.html', title: 'AMICA X ‘ESTERNO GIORNO’' },
+{ url: 'images/giornofolder/giorno3.jpg', link: '/projectpage/amicaesternogiorno.html', title: 'AMICA X ‘ESTERNO GIORNO’' },
+{ url: 'images/giornofolder/giorno4.jpg', link: '/projectpage/amicaesternogiorno.html', title: 'AMICA X ‘ESTERNO GIORNO’' },
+{ url: 'images/giornofolder/giorno6.jpg', link: '/projectpage/amicaesternogiorno.html', title: 'AMICA X ‘ESTERNO GIORNO’' },
+{ url: 'images/giornofolder/giorno7.jpg', link: '/projectpage/amicaesternogiorno.html', title: 'AMICA X ‘ESTERNO GIORNO’' },
+
+{ url: 'images/giselajoaofolder/giselajoao1.jpg', link: '/projectpage/giselajoao.html', title: 'GISELA JOÃO X PORTUGUESE SOUL' },
+{ url: 'images/giselajoaofolder/giselajoao2.jpg', link: '/projectpage/giselajoao.html', title: 'GISELA JOÃO X PORTUGUESE SOUL' },
+{ url: 'images/giselajoaofolder/giselajoao3.jpg', link: '/projectpage/giselajoao.html', title: 'GISELA JOÃO X PORTUGUESE SOUL' },
+
+{ url: 'images/gqapiccapsfolder/gqapiccaps1.jpg', link: '/projectpage/gqapiccaps.html', title: 'GQ STYLE X APICCAPS PORTUGUESE SHOES' },
+{ url: 'images/gqapiccapsfolder/gqapiccaps2.jpg', link: '/projectpage/gqapiccaps.html', title: 'GQ STYLE X APICCAPS PORTUGUESE SHOES' },
+{ url: 'images/gqapiccapsfolder/gqapiccaps5.jpg', link: '/projectpage/gqapiccaps.html', title: 'GQ STYLE X APICCAPS PORTUGUESE SHOES' },
+{ url: 'images/gqapiccapsfolder/gqapiccaps6.jpg', link: '/projectpage/gqapiccaps.html', title: 'GQ STYLE X APICCAPS PORTUGUESE SHOES' },
+
+{ url: 'images/gqstyleukfolder/gqstyleuk1.jpg', link: '/projectpage/gqstyleuk.html', title: 'GQ STYLE UK X PORTUGUESE SOUL' },
+{ url: 'images/gqstyleukfolder/gqstyleuk2.jpg', link: '/projectpage/gqstyleuk.html', title: 'GQ STYLE UK X PORTUGUESE SOUL' },
+{ url: 'images/gqstyleukfolder/gqstyleuk5.jpg', link: '/projectpage/gqstyleuk.html', title: 'GQ STYLE UK X PORTUGUESE SOUL' },
+
+{ url: 'images/inadaptadosfolder/inadaptados1.jpg', link: '/projectpage/vogueptosinadaptados.html', title: 'VOGUE PT X ‘OS INADAPTADOS’' },
+{ url: 'images/inadaptadosfolder/inadaptados3.jpg', link: '/projectpage/vogueptosinadaptados.html', title: 'VOGUE PT X ‘OS INADAPTADOS’' },
+{ url: 'images/inadaptadosfolder/inadaptados8.jpg', link: '/projectpage/vogueptosinadaptados.html', title: 'VOGUE PT X ‘OS INADAPTADOS’' },
+{ url: 'images/inadaptadosfolder/inadaptados11.Jpg', link: '/projectpage/vogueptosinadaptados.html', title: 'VOGUE PT X ‘OS INADAPTADOS’' },
+{ url: 'images/inadaptadosfolder/inadaptados13.jpg', link: '/projectpage/vogueptosinadaptados.html', title: 'VOGUE PT X ‘OS INADAPTADOS’' },
+
+{ url: 'images/kellyfolder/kelly1.jpg', link: '/projectpage/kellybailey.html', title: 'KELLY BAILEY X WOMEN’S HEALTH' },
+{ url: 'images/kellyfolder/kelly2.jpg', link: '/projectpage/kellybailey.html', title: 'KELLY BAILEY X WOMEN’S HEALTH' },
+{ url: 'images/kellyfolder/kelly3.jpg', link: '/projectpage/kellybailey.html', title: 'KELLY BAILEY X WOMEN’S HEALTH' },
+{ url: 'images/kellyfolder/kelly4.jpg', link: '/projectpage/kellybailey.html', title: 'KELLY BAILEY X WOMEN’S HEALTH' },
+{ url: 'images/kellyfolder/kelly5.jpg', link: '/projectpage/kellybailey.html', title: 'KELLY BAILEY X WOMEN’S HEALTH' },
+
+{ url: 'images/leatherfolder/leather2.jpg', link: '/projectpage/leathergoods.html', title: "PORTUGUESE SHOES SS21 'LEATHER GOODS'" },
+{ url: 'images/leatherfolder/leather5.jpg', link: '/projectpage/leathergoods.html', title: "PORTUGUESE SHOES SS21 'LEATHER GOODS'" },
+{ url: 'images/leatherfolder/leather6.jpg', link: '/projectpage/leathergoods.html', title: "PORTUGUESE SHOES SS21 'LEATHER GOODS'" },
+{ url: 'images/leatherfolder/leather7.jpg', link: '/projectpage/leathergoods.html', title: "PORTUGUESE SHOES SS21 'LEATHER GOODS'" },
+{ url: 'images/leatherfolder/leather8.jpg', link: '/projectpage/leathergoods.html', title: "PORTUGUESE SHOES SS21 'LEATHER GOODS'" },
+{ url: 'images/leatherfolder/leather9.jpg', link: '/projectpage/leathergoods.html', title: "PORTUGUESE SHOES SS21 'LEATHER GOODS'" },
+{ url: 'images/leatherfolder/leather10.jpg', link: '/projectpage/leathergoods.html', title: "PORTUGUESE SHOES SS21 'LEATHER GOODS'" },
+
+{ url: 'images/lemonjellyfolder/lemonjelly1.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly2.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly3.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly4.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly5.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly6.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly7.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly8.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+{ url: 'images/lemonjellyfolder/lemonjelly9.jpg', link: '/projectpage/lemonjellyss20.html', title: 'LEMON JELLY SS20 COLLECTION' },
+
+{ url: 'images/lj20folder/lj201.jpg', link: '/projectpage/lemonjellyaw20.html', title: 'LEMON JELLY AW20 COLLECTION' },
+{ url: 'images/lj20folder/lj203.jpg', link: '/projectpage/lemonjellyaw20.html', title: 'LEMON JELLY AW20 COLLECTION' },
+{ url: 'images/lj20folder/lj204.jpg', link: '/projectpage/lemonjellyaw20.html', title: 'LEMON JELLY AW20 COLLECTION' },
+{ url: 'images/lj20folder/lj205.jpg', link: '/projectpage/lemonjellyaw20.html', title: 'LEMON JELLY AW20 COLLECTION' },
+{ url: 'images/lj20folder/lj209.jpg', link: '/projectpage/lemonjellyaw20.html', title: 'LEMON JELLY AW20 COLLECTION' },
+{ url: 'images/lj20folder/lj2010.jpg', link: '/projectpage/lemonjellyaw20.html', title: 'LEMON JELLY AW20 COLLECTION' },
+
+{ url: 'images/luciafolder/lucia1.jpg', link: '/projectpage/lucia.html', title: 'LÚCIA X PORTUGUESE SOUL' },
+{ url: 'images/luciafolder/lucia2.jpg', link: '/projectpage/lucia.html', title: 'LÚCIA X PORTUGUESE SOUL' },
+{ url: 'images/luciafolder/lucia8.jpg', link: '/projectpage/lucia.html', title: 'LÚCIA X PORTUGUESE SOUL' },
+
+{ url: 'images/maryling20folder/maryling201.jpg', link: '/projectpage/maryling20.html', title: 'MARYLING FW20 COLLECTION' },
+{ url: 'images/maryling20folder/maryling202.jpg', link: '/projectpage/maryling20.html', title: 'MARYLING FW20 COLLECTION' },
+{ url: 'images/maryling20folder/maryling203.jpg', link: '/projectpage/maryling20.html', title: 'MARYLING FW20 COLLECTION' },
+{ url: 'images/maryling20folder/maryling204.jpg', link: '/projectpage/maryling20.html', title: 'MARYLING FW20 COLLECTION' },
+{ url: 'images/maryling20folder/maryling205.jpg', link: '/projectpage/maryling20.html', title: 'MARYLING FW20 COLLECTION' },
+{ url: 'images/maryling20folder/maryling206.jpg', link: '/projectpage/maryling20.html', title: 'MARYLING FW20 COLLECTION' },
+
+{ url: 'images/maryling21folder/maryling214.jpg', link: '/projectpage/maryling21.html', title: 'MARYLING SS21 COLLECTION' },
+{ url: 'images/maryling21folder/maryling215.jpg', link: '/projectpage/maryling21.html', title: 'MARYLING SS21 COLLECTION' },
+{ url: 'images/maryling21folder/maryling216.jpg', link: '/projectpage/maryling21.html', title: 'MARYLING SS21 COLLECTION' },
+{ url: 'images/maryling21folder/maryling217.jpg', link: '/projectpage/maryling21.html', title: 'MARYLING SS21 COLLECTION' },
+{ url: 'images/maryling21folder/maryling2113.jpg', link: '/projectpage/maryling21.html', title: 'MARYLING SS21 COLLECTION' },
+
+{ url: 'images/marylise21folder/marylise211.jpg', link: '/projectpage/maryliselookbook.html', title: 'MARYLISE 2021 X LOOKBOOK' },
+{ url: 'images/marylise21folder/marylise212.jpg', link: '/projectpage/maryliselookbook.html', title: 'MARYLISE 2021 X LOOKBOOK' },
+{ url: 'images/marylise21folder/marylise213.jpg', link: '/projectpage/maryliselookbook.html', title: 'MARYLISE 2021 X LOOKBOOK' },
+{ url: 'images/marylise21folder/marylise214.jpg', link: '/projectpage/maryliselookbook.html', title: 'MARYLISE 2021 X LOOKBOOK' },
+{ url: 'images/marylise21folder/marylise2111.jpg', link: '/projectpage/maryliselookbook.html', title: 'MARYLISE 2021 X LOOKBOOK' },
+
+{ url: 'images/marylisecampaignfolder/marylisecampaign1.jpg', link: '/projectpage/marylise2021.html', title: 'MARYLISE 2021 COLLECTION' },
+{ url: 'images/marylisecampaignfolder/marylisecampaign2.jpg', link: '/projectpage/marylise2021.html', title: 'MARYLISE 2021 COLLECTION' },
+{ url: 'images/marylisecampaignfolder/marylisecampaign4.jpg', link: '/projectpage/marylise2021.html', title: 'MARYLISE 2021 COLLECTION' },
+{ url: 'images/marylisecampaignfolder/marylisecampaign5.jpg', link: '/projectpage/marylise2021.html', title: 'MARYLISE 2021 COLLECTION' },
+{ url: 'images/marylisecampaignfolder/marylisecampaign19.jpg', link: '/projectpage/marylise2021.html', title: 'MARYLISE 2021 COLLECTION' },
+
+{ url: 'images/melchiorfolder/melchior2.jpg', link: '/projectpage/danielamelchior.html', title: 'DANIELA MELCHIOR X PORTUGUESE SOUL' },
+{ url: 'images/melchiorfolder/melchior3.jpg', link: '/projectpage/danielamelchior.html', title: 'DANIELA MELCHIOR X PORTUGUESE SOUL' },
+{ url: 'images/melchiorfolder/melchior6.jpg', link: '/projectpage/danielamelchior.html', title: 'DANIELA MELCHIOR X PORTUGUESE SOUL' },
+{ url: 'images/melchiorfolder/melchior8.jpg', link: '/projectpage/danielamelchior.html', title: 'DANIELA MELCHIOR X PORTUGUESE SOUL' },
+{ url: 'images/melchiorfolder/melchior9.jpg', link: '/projectpage/danielamelchior.html', title: 'DANIELA MELCHIOR X PORTUGUESE SOUL' },
+{ url: 'images/melchiorfolder/melchior13.jpg', link: '/projectpage/danielamelchior.html', title: 'DANIELA MELCHIOR X PORTUGUESE SOUL' },
+{ url: 'images/melchiorfolder/melchior16.jpg', link: '/projectpage/danielamelchior.html', title: 'DANIELA MELCHIOR X PORTUGUESE SOUL' },
+
+{ url: 'images/nunolopesfolder/nunolopes2.jpg', link: '/projectpage/nunolopes.html', title: 'NUNO LOPES X PORTUGUESE SOUL' },
+{ url: 'images/nunolopesfolder/nunolopes5.jpg', link: '/projectpage/nunolopes.html', title: 'NUNO LOPES X PORTUGUESE SOUL' },
+{ url: 'images/nunolopesfolder/nunolopes7.jpg', link: '/projectpage/nunolopes.html', title: 'NUNO LOPES X PORTUGUESE SOUL' },
+{ url: 'images/nunolopesfolder/nunolopes16.jpg', link: '/projectpage/nunolopes.html', title: 'NUNO LOPES X PORTUGUESE SOUL' },
+{ url: 'images/nunolopesfolder/nunolopes20.jpg', link: '/projectpage/nunolopes.html', title: 'NUNO LOPES X PORTUGUESE SOUL' },
+
+{ url: 'images/onewatchfolder/onewatch1.jpg', link: '/projectpage/onewatch.html', title: 'ONE WATCH SS20' },
+{ url: 'images/onewatchfolder/onewatch2.jpg', link: '/projectpage/onewatch.html', title: 'ONE WATCH SS20' },
+{ url: 'images/onewatchfolder/onewatch3.jpg', link: '/projectpage/onewatch.html', title: 'ONE WATCH SS20' },
+{ url: 'images/onewatchfolder/onewatch4.jpg', link: '/projectpage/onewatch.html', title: 'ONE WATCH SS20' },
+{ url: 'images/onewatchfolder/onewatch6.jpg', link: '/projectpage/onewatch.html', title: 'ONE WATCH SS20' },
+{ url: 'images/onewatchfolder/onewatch7.jpg', link: '/projectpage/onewatch.html', title: 'ONE WATCH SS20' },
+
+{ url: 'images/onofrefolder/onofre1.jpg', link: '/projectpage/luisonofre.html', title: 'LUÍS ONOFRE' },
+{ url: 'images/onofrefolder/onofre2.jpg', link: '/projectpage/luisonofre.html', title: 'LUÍS ONOFRE' },
+{ url: 'images/onofrefolder/onofre6.jpg', link: '/projectpage/luisonofre.html', title: 'LUÍS ONOFRE' },
+{ url: 'images/onofrefolder/onofre10.jpg', link: '/projectpage/luisonofre.html', title: 'LUÍS ONOFRE' },
+
+{ url: 'images/pointbreakfolder/pointbreak1.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak2.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak3.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak4.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak5.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak9.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak10.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak16.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+{ url: 'images/pointbreakfolder/pointbreak17.jpg', link: '/projectpage/vogueptpointbreak.html', title: 'VOGUE PT X ‘POINT BREAK’' },
+
+{ url: 'images/portraitladyfolder/portraitlady1.jpg', link: '/projectpage/amicaportraitofalady.html', title: 'AMICA MAGAZINE X ‘PORTRAIT OF A LADY’' },
+{ url: 'images/portraitladyfolder/portraitlady2.jpg', link: '/projectpage/amicaportraitofalady.html', title: 'AMICA MAGAZINE X ‘PORTRAIT OF A LADY’' },
+{ url: 'images/portraitladyfolder/portraitlady3.jpg', link: '/projectpage/amicaportraitofalady.html', title: 'AMICA MAGAZINE X ‘PORTRAIT OF A LADY’' },
+{ url: 'images/portraitladyfolder/portraitlady6.jpg', link: '/projectpage/amicaportraitofalady.html', title: 'AMICA MAGAZINE X ‘PORTRAIT OF A LADY’' },
+{ url: 'images/portraitladyfolder/portraitlady8.jpg', link: '/projectpage/amicaportraitofalady.html', title: 'AMICA MAGAZINE X ‘PORTRAIT OF A LADY’' },
+{ url: 'images/portraitladyfolder/portraitlady11.jpg', link: '/projectpage/amicaportraitofalady.html', title: 'AMICA MAGAZINE X ‘PORTRAIT OF A LADY’' },
+
+{ url: 'images/rachidefolder/rachide1.jpg', link: '/projectpage/rachideembalo.html', title: 'RACHIDE EMBALÓ X PORTUGUESE SOUL' },
+{ url: 'images/rachidefolder/rachide2.jpg', link: '/projectpage/rachideembalo.html', title: 'RACHIDE EMBALÓ X PORTUGUESE SOUL' },
+{ url: 'images/rachidefolder/rachide4.jpg', link: '/projectpage/rachideembalo.html', title: 'RACHIDE EMBALÓ X PORTUGUESE SOUL' },
+{ url: 'images/rachidefolder/rachide5.jpg', link: '/projectpage/rachideembalo.html', title: 'RACHIDE EMBALÓ X PORTUGUESE SOUL' },
+{ url: 'images/rachidefolder/rachide9.jpg', link: '/projectpage/rachideembalo.html', title: 'RACHIDE EMBALÓ X PORTUGUESE SOUL' },
+
+{ url: 'images/rembo21folder/rembo217.jpg', link: '/projectpage/rembostylinglookbook.html', title: 'REMBO STYLING 2021 X LOOKBOOK' },
+{ url: 'images/rembo21folder/rembo219.jpg', link: '/projectpage/rembostylinglookbook.html', title: 'REMBO STYLING 2021 X LOOKBOOK' },
+{ url: 'images/rembo21folder/rembo2110.jpg', link: '/projectpage/rembostylinglookbook.html', title: 'REMBO STYLING 2021 X LOOKBOOK' },
+{ url: 'images/rembo21folder/rembo2114.jpg', link: '/projectpage/rembostylinglookbook.html', title: 'REMBO STYLING 2021 X LOOKBOOK' },
+{ url: 'images/rembo21folder/rembo2120.jpg', link: '/projectpage/rembostylinglookbook.html', title: 'REMBO STYLING 2021 X LOOKBOOK' },
+
+{ url: 'images/rembofolder/rembo1.jpg', link: '/projectpage/rembostyling2021.html', title: 'REMBO STYLING 2021 COLLECTION' },
+{ url: 'images/rembofolder/rembo3.jpg', link: '/projectpage/rembostyling2021.html', title: 'REMBO STYLING 2021 COLLECTION' },
+{ url: 'images/rembofolder/rembo4.jpg', link: '/projectpage/rembostyling2021.html', title: 'REMBO STYLING 2021 COLLECTION' },
+{ url: 'images/rembofolder/rembo6.jpg', link: '/projectpage/rembostyling2021.html', title: 'REMBO STYLING 2021 COLLECTION' },
+{ url: 'images/rembofolder/rembo7.jpg', link: '/projectpage/rembostyling2021.html', title: 'REMBO STYLING 2021 COLLECTION' },
+{ url: 'images/rembofolder/rembo11.jpg', link: '/projectpage/rembostyling2021.html', title: 'REMBO STYLING 2021 COLLECTION' },
+{ url: 'images/rembofolder/rembo25.jpg', link: '/projectpage/rembostyling2021.html', title: 'REMBO STYLING 2021 COLLECTION' },
+
+{ url: 'images/sartanejofolder/sartanejo1.jpg', link: '/projectpage/vogueptsartanejo.html', title: 'VOGUE PT X ‘LAMENTO SARTANEJO’' },
+{ url: 'images/sartanejofolder/sartanejo2.jpg', link: '/projectpage/vogueptsartanejo.html', title: 'VOGUE PT X ‘LAMENTO SARTANEJO’' },
+{ url: 'images/sartanejofolder/sartanejo4.jpg', link: '/projectpage/vogueptsartanejo.html', title: 'VOGUE PT X ‘LAMENTO SARTANEJO’' },
+{ url: 'images/sartanejofolder/sartanejo5.jpg', link: '/projectpage/vogueptsartanejo.html', title: 'VOGUE PT X ‘LAMENTO SARTANEJO’' },
+{ url: 'images/sartanejofolder/sartanejo9.jpg', link: '/projectpage/vogueptsartanejo.html', title: 'VOGUE PT X ‘LAMENTO SARTANEJO’' },
+{ url: 'images/sartanejofolder/sartanejo11.jpg', link: '/projectpage/vogueptsartanejo.html', title: 'VOGUE PT X ‘LAMENTO SARTANEJO’' },
+
+{ url: 'images/simplicityfolder/simplicity1.jpg', link: '/projectpage/lionofporches.html', title: 'LION OF PORCHES' },
+{ url: 'images/simplicityfolder/simplicity2.jpg', link: '/projectpage/lionofporches.html', title: 'LION OF PORCHES' },
+{ url: 'images/simplicityfolder/simplicity3.jpg', link: '/projectpage/lionofporches.html', title: 'LION OF PORCHES' },
+{ url: 'images/simplicityfolder/simplicity4.jpg', link: '/projectpage/lionofporches.html', title: 'LION OF PORCHES' },
+{ url: 'images/simplicityfolder/simplicity7.jpg', link: '/projectpage/lionofporches.html', title: 'LION OF PORCHES' },
+{ url: 'images/simplicityfolder/simplicity9.jpg', link: '/projectpage/lionofporches.html', title: 'LION OF PORCHES' },
+
+{ url: 'images/sisterlylovefolder/sisterlylove1.jpg', link: '/projectpage/vogueptsisterlylove.html', title: 'VOGUE PT X ‘SISTERLY LOVE’' },
+{ url: 'images/sisterlylovefolder/sisterlylove2.jpg', link: '/projectpage/vogueptsisterlylove.html', title: 'VOGUE PT X ‘SISTERLY LOVE’' },
+{ url: 'images/sisterlylovefolder/sisterlylove4.jpg', link: '/projectpage/vogueptsisterlylove.html', title: 'VOGUE PT X ‘SISTERLY LOVE’' },
+{ url: 'images/sisterlylovefolder/sisterlylove5.jpg', link: '/projectpage/vogueptsisterlylove.html', title: 'VOGUE PT X ‘SISTERLY LOVE’' },
+
+{ url: 'images/themisfitsfolder/themisfits1.jpg', link: '/projectpage/vogueptthemisfits.html', title: 'VOGUE PT X ‘THE MISFITS’' },
+{ url: 'images/themisfitsfolder/themisfits3.jpg', link: '/projectpage/vogueptthemisfits.html', title: 'VOGUE PT X ‘THE MISFITS’' },
+{ url: 'images/themisfitsfolder/themisfits4.jpg', link: '/projectpage/vogueptthemisfits.html', title: 'VOGUE PT X ‘THE MISFITS’' },
+{ url: 'images/themisfitsfolder/themisfits5.jpg', link: '/projectpage/vogueptthemisfits.html', title: 'VOGUE PT X ‘THE MISFITS’' },
+{ url: 'images/themisfitsfolder/themisfits6.jpg', link: '/projectpage/vogueptthemisfits.html', title: 'VOGUE PT X ‘THE MISFITS’' },
+
+{ url: 'images/turning18folder/turning181.jpg', link: '/projectpage/turning18.html', title: 'PORTUGUESE SOUL X ‘TURNING 18’' },
+{ url: 'images/turning18folder/turning184.jpg', link: '/projectpage/turning18.html', title: 'PORTUGUESE SOUL X ‘TURNING 18’' },
+{ url: 'images/turning18folder/turning185.jpg', link: '/projectpage/turning18.html', title: 'PORTUGUESE SOUL X ‘TURNING 18’' },
+{ url: 'images/turning18folder/turning187.jpg', link: '/projectpage/turning18.html', title: 'PORTUGUESE SOUL X ‘TURNING 18’' },
+{ url: 'images/turning18folder/turning1813.jpg', link: '/projectpage/turning18.html', title: 'PORTUGUESE SOUL X ‘TURNING 18’' },
+{ url: 'images/turning18folder/turning1820.jpg', link: '/projectpage/turning18.html', title: 'PORTUGUESE SOUL X ‘TURNING 18’' },
+
+{ url: 'images/ukrainefolder/ukraine1.jpg', link: '/projectpage/lofficielukraine.html', title: 'L’OFFICIEL UKRAINE' },
+{ url: 'images/ukrainefolder/ukraine2.jpg', link: '/projectpage/lofficielukraine.html', title: 'L’OFFICIEL UKRAINE' },
+{ url: 'images/ukrainefolder/ukraine3.jpg', link: '/projectpage/lofficielukraine.html', title: 'L’OFFICIEL UKRAINE' },
+{ url: 'images/ukrainefolder/ukraine4.jpg', link: '/projectpage/lofficielukraine.html', title: 'L’OFFICIEL UKRAINE' },
+{ url: 'images/ukrainefolder/ukraine5.jpg', link: '/projectpage/lofficielukraine.html', title: 'L’OFFICIEL UKRAINE' },
+
+{ url: 'images/vanderloofolder/vanderloo1.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo3.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo5.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo6.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo8.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo14.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo15.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo16.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+{ url: 'images/vanderloofolder/vanderloo20.jpg', link: '/projectpage/markvanderloo.html', title: 'MARK VANDERLOO X GQ PORTUGAL' },
+
+{ url: 'images/viaggiofolder/viaggio2.jpg', link: '/projectpage/amicainviaggio.html', title: 'AMICA MAGAZINE X ‘IN VIAGGIO’' },
+{ url: 'images/viaggiofolder/viaggio3.jpg', link: '/projectpage/amicainviaggio.html', title: 'AMICA MAGAZINE X ‘IN VIAGGIO’' },
+{ url: 'images/viaggiofolder/viaggio7.jpg', link: '/projectpage/amicainviaggio.html', title: 'AMICA MAGAZINE X ‘IN VIAGGIO’' },
+{ url: 'images/viaggiofolder/viaggio8.jpg', link: '/projectpage/amicainviaggio.html', title: 'AMICA MAGAZINE X ‘IN VIAGGIO’' },
+{ url: 'images/viaggiofolder/viaggio9.jpg', link: '/projectpage/amicainviaggio.html', title: 'AMICA MAGAZINE X ‘IN VIAGGIO’' },
+
+{ url: 'images/wearemodelsfolder/wearemodels1.jpg', link: '/projectpage/wearemodels.html', title: 'WE ARE MODELS X ‘NO NEW FRIENDS’' },
+{ url: 'images/wearemodelsfolder/wearemodels2.jpg', link: '/projectpage/wearemodels.html', title: 'WE ARE MODELS X ‘NO NEW FRIENDS’' },
+{ url: 'images/wearemodelsfolder/wearemodels3.jpg', link: '/projectpage/wearemodels.html', title: 'WE ARE MODELS X ‘NO NEW FRIENDS’' },
+{ url: 'images/wearemodelsfolder/wearemodels4.jpg', link: '/projectpage/wearemodels.html', title: 'WE ARE MODELS X ‘NO NEW FRIENDS’' },
+{ url: 'images/wearemodelsfolder/wearemodels8.jpg', link: '/projectpage/wearemodels.html', title: 'WE ARE MODELS X ‘NO NEW FRIENDS’' },
+
+           
+            // Add more images as needed
+        ];
+    
+        // Function to shuffle array
+      function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Calculate the number of images per column
+        const numColumns = 4;
+        const imagesPerColumn = Math.ceil(images.length / numColumns);
+
+        // Function to distribute images evenly across columns
+        function distributeImages(images, numColumns) {
+            const columns = Array.from({ length: numColumns }, () => []);
+            images.forEach((image, index) => {
+                const columnIndex = index % numColumns;
+                columns[columnIndex].push(image);
+            });
+            return columns;
+        }
+
+        
+
+        // Shuffle the images array
+        const shuffledImages = shuffleArray(images);
+
+        // Distribute images evenly across columns
+        const distributedImages = distributeImages(shuffledImages, numColumns);
+
+        // Generate HTML for each image with its link and title
+        const galleryContainer = document.getElementById('imageGallery');
+        distributedImages.forEach((columnImages, columnIndex) => {
+            const columnElement = galleryContainer.querySelector(`#column${columnIndex + 1}`);
+            columnImages.forEach(image => {
+                const linkElement = document.createElement('a');
+                linkElement.href = image.link;
+                const imgContainer = document.createElement('div');
+                imgContainer.classList.add('image-container');
+                const imgElement = document.createElement('img');
+                imgElement.src = image.url;
+                const titleElement = document.createElement('div');
+                titleElement.classList.add('image-title');
+                titleElement.textContent = image.title;
+                imgContainer.appendChild(imgElement);
+                imgContainer.appendChild(titleElement);
+                linkElement.appendChild(imgContainer);
+                columnElement.appendChild(linkElement);
+            });
+        });
+
+        
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
